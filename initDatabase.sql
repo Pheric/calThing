@@ -4,19 +4,21 @@ CREATE DATABASE activitiesPost;
 USE activitiesPost;  -- MySQL command
 
 -- create the tables
-CREATE TABLE events (
-    eventID INT NOT NULL PRIMARY KEY,
-    categoryID INT(11) NOT NULL,
-    eventName VARCHAR(255) NOT NULL,
-    eventDescription VARCHAR(255) NOT NULL,
-    eventLocation VARCHAR(255) NOT NULL,
-    eventTime VARCHAR(255) NOT NULL
+CREATE TABLE event (
+    eventId INT AUTO_INCREMENT,
+    categoryId INT NOT NULL,
+    eventName VARCHAR NOT NULL,
+    eventDescription VARCHAR NOT NULL,
+    eventLocation VARCHAR NOT NULL,
+    eventTime VARCHAR NOT NULL,
+    CONSTRAINT event_pk PRIMARY KEY (eventId),
+    FOREIGN KEY categoryId REFERENCES categories(categoryId)
 );
 
-CREATE TABLE categories (
-  categoryID INT(11) NOT NULL,
-  categoryName VARCHAR(255) NOT NULL,
-  PRIMARY KEY (categoryID)
+CREATE TABLE category (
+  categoryId INT AUTO_INCREMENT,
+  categoryName VARCHAR NOT NULL UNIQUE,
+  CONSTRAINT category_pk PRIMARY KEY (categoryId)
 );
 
 INSERT INTO categories VALUES
@@ -33,14 +35,3 @@ INSERT INTO events VALUES
 (4, 3, "testing4", "making sure the database works4", "BIT235-4", "midnight to sunrise4"),
 (5, 4, "testing5", "making sure the database works5", "BIT235-5", "midnight to sunrise5"),
 (6, 5, "testing6", "making sure the database works6", "BIT235-6", "midnight to sunrise6");
-
--- create the users and grant priveleges to those users
-GRANT SELECT, INSERT, DELETE, UPDATE
-ON activitiesPost.*
-TO dbUser@localhost
-IDENTIFIED BY 'Password1!';
-
-GRANT SELECT
-ON events
-TO dbTester@localhost
-IDENTIFIED BY 'Password1!';
