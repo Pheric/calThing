@@ -4,21 +4,18 @@ CREATE DATABASE activitiesPost;
 USE activitiesPost;  -- MySQL command
 
 -- create the tables
+CREATE TABLE categories (
+  categoryId INT AUTO_INCREMENT PRIMARY KEY,
+  categoryName TEXT NOT NULL
+);
+
 CREATE TABLE events (
-    eventId INT AUTO_INCREMENT,
+    eventId INT AUTO_INCREMENT PRIMARY KEY,
     categoryId INT NOT NULL,
     eventName TEXT NOT NULL,
     eventDescription TEXT NOT NULL,
     eventLocation TEXT NOT NULL,
-    eventTime TEXT NOT NULL,
-    CONSTRAINT event_pk PRIMARY KEY (eventId),
-    CONSTRAINT cat_fk FOREIGN KEY (categoryId) REFERENCES categories(categoryId)
-);
-
-CREATE TABLE category (
-  categoryId INT AUTO_INCREMENT,
-  categoryName TEXT NOT NULL UNIQUE,
-  CONSTRAINT category_pk PRIMARY KEY (categoryId)
+    eventTime TEXT NOT NULL
 );
 
 INSERT INTO categories VALUES
