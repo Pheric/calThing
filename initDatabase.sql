@@ -4,7 +4,7 @@ CREATE DATABASE activitiesPost;
 USE activitiesPost;  -- MySQL command
 
 -- create the tables
-CREATE TABLE event (
+CREATE TABLE events (
     eventId INT AUTO_INCREMENT,
     categoryId INT NOT NULL,
     eventName TEXT NOT NULL,
