@@ -3,10 +3,10 @@ DROP DATABASE IF EXISTS activitiesPost;
 CREATE DATABASE activitiesPost;
 USE activitiesPost;  -- MySQL command
 
--- create the tables
 CREATE TABLE categories (
-  categoryId INT AUTO_INCREMENT PRIMARY KEY,
-  categoryName TEXT NOT NULL
+    categoryId INT AUTO_INCREMENT,
+    categoryName TEXT NOT NULL UNIQUE,
+    CONSTRAINT category_pk PRIMARY KEY (categoryId)
 );
 
 CREATE TABLE events (
