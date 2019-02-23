@@ -7,17 +7,17 @@ USE activitiesPost;  -- MySQL command
 CREATE TABLE event (
     eventId INT AUTO_INCREMENT,
     categoryId INT NOT NULL,
-    eventName VARCHAR NOT NULL,
-    eventDescription VARCHAR NOT NULL,
-    eventLocation VARCHAR NOT NULL,
-    eventTime VARCHAR NOT NULL,
+    eventName TEXT NOT NULL,
+    eventDescription TEXT NOT NULL,
+    eventLocation TEXT NOT NULL,
+    eventTime TEXT NOT NULL,
     CONSTRAINT event_pk PRIMARY KEY (eventId),
-    FOREIGN KEY categoryId REFERENCES categories(categoryId)
+    CONSTRAINT cat_fk FOREIGN KEY (categoryId) REFERENCES categories(categoryId)
 );
 
 CREATE TABLE category (
   categoryId INT AUTO_INCREMENT,
-  categoryName VARCHAR NOT NULL UNIQUE,
+  categoryName TEXT NOT NULL UNIQUE,
   CONSTRAINT category_pk PRIMARY KEY (categoryId)
 );
 
