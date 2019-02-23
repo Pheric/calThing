@@ -81,24 +81,24 @@ for i in range(1,len(lines)):
         #    section += 1
         #    continue
         if line_counter == 0:
-            events[-1].desc = lines[i]
+            events[-1].desc = lines[i].replace('\n','<br>')
             line_counter += 1
         elif line_counter == 1:
-            events[-1].when = lines[i]
+            events[-1].when = lines[i].replace('\n','<br>')
             line_counter += 1
         elif line_counter == 2:
-            events[-1].where = lines[i]
+            events[-1].where = lines[i].replace('\n','<br>')
             line_counter += 1
         else:
             line = lines[i].split(') ')
-            events[-1].contact = line[0] + ')'
+            events[-1].contact = line[0] + ')'.replace('\n','<br>')
             line_counter = 0
             if len(line) > 1:
                 if line[1] == 'General Information':
                     section += 1
                     continue
                 #print(line[1] + '\n')
-                events.append(Event(line[1]))
+                events.append(Event(line[1].replace('\n','<br>')))
     elif section == 1:
         pass
     elif section == 2:
