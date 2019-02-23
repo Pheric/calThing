@@ -2,6 +2,7 @@
     include "errPair.php";
     include "post.php";
 
+    const CONNECT_FAILURE = -1;
     const PREPARE_FAILURE = 2;
     const EXEC_FAILURE = 3;
     const EMPTY_RESPONSE = 4;
@@ -13,32 +14,40 @@ function getConn() {
         $dbPass = "jumpingTacos!!";
         $dbName = "activitiesPost";
 
-        $dbConn = new mysqli($dbHost, $dbUser, $dbPass, $dbName, $dbPort);
+        $dbConn = @new mysqli($dbHost, $dbUser, $dbPass, $dbName, $dbPort);
         if ($dbConn->connect_error) {
-            die("Connection failed: " . $dbConn->connect_error);
+            return new ErrPair(-1, $dbConn->connect_error, null);
         }
 
-        return $dbConn;
+        return new ErrPair(null, null, $dbConn);
     }
 
     function testDb() {
-        $err = "";
+        $connPair = getConn();
+        if (!$connPair->isOk())
+            return $connPair;
+        $conn = $connPair->res;
 
-        $conn = getConn();
+        $err = "";
         if (!$conn->multi_query("
           CREATE TABLE IF NOT EXISTS test (f VARCHAR(20));
           INSERT INTO test (f) VALUES ('testing...');
           DROP TABLE test;
         ")) {
-            $err = $conn->error;
+            $conn->close();
+            return new ErrPair(EXEC_FAILURE, $conn->errno . ': ' . $conn->error);
         }
 
         $conn->close();
-        return $err;
+        return new ErrPair(null, null, null);
     }
 
     function fetchEvent($id) {
-        $conn = getConn();
+        $connPair = getConn();
+        if (!$connPair->isOk())
+            return $connPair;
+
+        $conn = $connPair->res;
 
         $stmt = $conn->prepare('SELECT categoryId, eventName, eventDescription, eventLocation, eventTime FROM events WHERE eventId = ? LIMIT 1');
         if (!$stmt) {

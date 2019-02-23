@@ -1,0 +1,33 @@
+html, body {
+    height: 100%;
+    width: 100%;
+
+    margin: 0;
+    padding: 0;
+}
+* {
+    box-sizing: border-box;
+}
+
+nav {
+    height: 30px;
+}
+nav * {
+    display: inline-block;
+    margin-left: 30px;
+}
+
+.container {
+    padding: 1em;
+}
+
+.flex-row-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.flex-center {
+    justify-content: center;
+    align-items: center;
+}
