@@ -1,7 +1,14 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: eric
- * Date: 2/22/19
- * Time: 6:38 PM
- */
+    $version = "0.0.1-ALPHA"
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CalThing</title>
+</head>
+<body>
+    <h1>Welcome to CalThing v<?php echo $version ?></h1>
+</body>
+</html>
