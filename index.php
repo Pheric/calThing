@@ -1,5 +1,6 @@
 <?php
-    $version = "0.0.1-ALPHA"
+    include "db.php";
+    $version = "0.0.1-ALPHA";
 ?>
 
 <!DOCTYPE html>
@@ -10,5 +11,6 @@
 </head>
 <body>
     <h1>Welcome to CalThing v<?php echo $version ?></h1>
+    <h3><?php $err = testDb(); echo empty($err)?'Test successful':$err ?></h3>
 </body>
 </html>
