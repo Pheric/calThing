@@ -13,7 +13,7 @@ CREATE TABLE events (
 );
 
 INSERT INTO events VALUES
-(1, "testing", "BIT235", "midnight to sunrise");
+(1, "testing", "making sure the database works", "BIT235", "midnight to sunrise");
 
 -- create the users and grant priveleges to those users
 GRANT SELECT, INSERT, DELETE, UPDATE
