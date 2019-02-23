@@ -7,6 +7,7 @@ USE activitiesPost;  -- MySQL command
 CREATE TABLE events (
     eventID INT NOT NULL PRIMARY KEY,
     eventName VARCHAR(255) NOT NULL,
+    eventDescription VARCHAR(255) NOT NULL,
     eventLocation VARCHAR(255) NOT NULL,
     eventTime VARCHAR(255) NOT NULL
 );
