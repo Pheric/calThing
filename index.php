@@ -48,7 +48,7 @@
                     $post = $postErrPair->res;
 
                     foreach ($post->getRelevantCategories($categories) as $cat) {
-                        echo "<button class='collapsible'>$cat->name</button>";
+                        echo "<button class='collapsible cat' onclick='collapse(this)'>$cat->name</button>";
                         foreach ($post->getEventsInCategory($categories, $cat) as $event) {
                             echo "
                                 <button class='collapsible'>$event->name</button>
