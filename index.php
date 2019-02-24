@@ -51,7 +51,7 @@
                         echo "<button class='collapsible cat' onclick='collapse(this)'>$cat->name</button>";
                         foreach ($post->getEventsInCategory($categories, $cat) as $event) {
                             echo "
-                                <button class='collapsible'>$event->name</button>
+                                <button class='collapsible' onclick='collapse(this)'>$event->name</button>
                                 <div class='event'>
                                     <div class='content-header'>
                                         <h4><span class='hint'>LOCATION:&nbsp;</span>$event->location</h4>
