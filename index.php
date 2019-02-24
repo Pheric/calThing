@@ -20,6 +20,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="styling/index.css" />
     <script src="scripts/index.js"></script>
     <meta charset="UTF-8">
@@ -35,7 +36,7 @@
         </h5>
     </nav>
     <div class="flex-row-container flex-center">
-        <div class="container">
+        <ul class="container accordion">
             <?php
             // Stop reading here lest your mind descend into the depths of infinite madness.
             // But if you don't: nobody else needs to know of this. Ever.
@@ -63,6 +64,7 @@
                                 </div>
                             ";
                         }
+                        echo "</li>";
                     }
                 } else {
                     $err = "An internal error occurred while fetching this week's post. Please try again later.";
@@ -103,7 +105,7 @@
                 TAG;
             }
             ?>
-        </div>
+        </ul>
     </div>
 </body>
 </html>
