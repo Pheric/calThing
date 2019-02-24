@@ -155,6 +155,7 @@ for i in range(1,len(lines)):
         pass
 
 with open(sys.argv[2], 'w') as o:
+    o.write(len(events)+'\n')
     for e in events:
         o.write(e.file_format())
     # for g in infos:
