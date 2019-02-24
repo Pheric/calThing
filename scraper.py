@@ -88,7 +88,7 @@ for line in lines:
             if len(line) > len(i):
                 none = True
                 if line[-len(i):] == i:
-                    print('found {}'.format(i))
+                    # print('found {}'.format(i))
                     newlines.append(templine + line[:-len(i)])
                     newlines.append(line[-len(i):])
                     templine = ''
@@ -155,7 +155,7 @@ for i in range(1,len(lines)):
         pass
 
 with open(sys.argv[2], 'w') as o:
-    o.write(len(events)+'\n')
+    o.write(str(len(events))+'\n')
     for e in events:
         o.write(e.file_format())
     # for g in infos:
