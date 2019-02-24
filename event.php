@@ -38,4 +38,36 @@
             $this->poster = $poster;
             $this->events = $events;
         }
+
+        public function getRelevantCategories($categories) {
+            $ret = new ArrayObject();
+            foreach ($this->events as $event) {
+                $c = $event->getCategory($categories);
+                if ($c === null) continue;
+
+                // I know, I know. Can't use a set, objects can't be used as keys in PHP
+                $contains = false;
+                foreach ($ret as $r) {
+                    if ($r === $c) {
+                        $contains = true;
+                        break;
+                    }
+                }
+                if (!$contains)
+                    $ret->append($c);
+            }
+
+            return $ret;
+        }
+
+        public function getEventsInCategory($categories, $category) {
+            $ret = new ArrayObject();
+
+            foreach ($this->events as $event) {
+                if ($event->getCategory($categories) === $category)
+                    $ret->append($event);
+            }
+
+            return $ret;
+        }
     }

@@ -21,6 +21,7 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="styling/index.css" />
+    <script src="scripts/index.js"></script>
     <meta charset="UTF-8">
     <title>CalThing</title>
 </head>
@@ -46,29 +47,23 @@
                 if ($postErrPair->isOk()) {
                     $post = $postErrPair->res;
 
-                    echo "
-                    <table>
-                        <tr>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th>Location</th>
-                            <th>Time</th>
-                            <th>Category</th>
-                        </tr>
-                    ";
-                    foreach ($post->events as $e) {
-                        $cat = $e->getCategory($categories)->name;
-                        echo "
-                        <tr>
-                            <td>$e->name</td>
-                            <td>$e->description</td>
-                            <td>$e->location</td>
-                            <td>$e->time</td>
-                            <td>$cat</td>
-                        </tr>
-                        ";
+                    foreach ($post->getRelevantCategories($categories) as $cat) {
+                        echo "<button class='collapsible'>$cat->name</button>";
+                        foreach ($post->getEventsInCategory($categories, $cat) as $event) {
+                            echo "
+                                <button class='collapsible'>$event->name</button>
+                                <div class='event'>
+                                    <div class='content-header'>
+                                        <h4><span class='hint'>LOCATION:&nbsp;</span>$event->location</h4>
+                                        <h4 style='float: right;'><span class='hint'>TIME:&nbsp;</span>$event->time</h4>
+                                    </div>
+                                    <div class='content'>
+                                        <p>$event->description</p>
+                                    </div>
+                                </div>
+                            ";
+                        }
                     }
-                    echo "</table>";
                 } else {
                     $err = "An internal error occurred while fetching this week's post. Please try again later.";
                 }
@@ -77,35 +72,35 @@
             }
 
             if (!empty($err)) {
-                echo '
-                <h3>Oops! <a href="#" onclick="alert($err)">Something went wrong. Try again later!</a></h3>
+                echo <<<TAG
+                <h3>Oops! <a href="#" onclick='alert("$err")'>Something went wrong. Try again later!</a></h3>
                 <pre>
-                  .-~*~--,.   .-.
-          .-~-. ./OOOOOOOOO\.\'OOO`9~~-.
-        .`OOOOOO.OOO.OOO@@@@@OOO@@OOOOOO\
-       /OOOO@@@OO@@@OO@@@OOO@@@@@@@@OOOO`.
-       |OO@@@WWWW@@@@OOWWW@WWWW@@@@@@@OOOO).
-     .-\'OO@@@@WW@@@W@WWWWWWWWOOWW@@@@@OOOOOO}
-    /OOO@@O@@@@W@@@@@OOWWWWWOOWOO@@@OOO@@@OO|
-   lOOO@@@OO@@@WWWWWWW\OWWWO\WWWOOOOOO@@@O.\'
-    \OOO@@@OOO@@@@@@OOW\     \WWWW@@@@@@@O\'.
-     `,OO@@@OOOOOOOOOOWW\     \WWWW@@@@@@OOO)
-      \,O@@@@@OOOOOOWWWWW\     \WW@@@@@OOOO.\'
-        `~c~8~@@@@WWW@@W\       \WOO|\UO-~\'
-             (OWWWWWW@/\W\    ___\WO)
-               `~-~\'\'     \   \WW=*\'
-                         __\   \
-                         \      \
-                          \    __\
-                           \  \
-                            \ \
-                             \ \
-                              \\
-                               \\
-                                \
-                                 \
+                                      .-~*~--,.   .-.
+                              .-~-. ./OOOOOOOOO\.\'OOO`9~~-.
+                            .`OOOOOO.OOO.OOO@@@@@OOO@@OOOOOO\
+                           /OOOO@@@OO@@@OO@@@OOO@@@@@@@@OOOO`.
+                           |OO@@@WWWW@@@@OOWWW@WWWW@@@@@@@OOOO).
+                         .-\'OO@@@@WW@@@W@WWWWWWWWOOWW@@@@@OOOOOO}
+                        /OOO@@O@@@@W@@@@@OOWWWWWOOWOO@@@OOO@@@OO|
+                       lOOO@@@OO@@@WWWWWWW\OWWWO\WWWOOOOOO@@@O.\'
+                        \OOO@@@OOO@@@@@@OOW\     \WWWW@@@@@@@O\'.
+                         `,OO@@@OOOOOOOOOOWW\     \WWWW@@@@@@OOO)
+                          \,O@@@@@OOOOOOWWWWW\     \WW@@@@@OOOO.\'
+                            `~c~8~@@@@WWW@@W\       \WOO|\UO-~\'
+                                 (OWWWWWW@/\W\    ___\WO)
+                                 `~-~\'\'     \   \WW=*\'
+                                             __\   \
+                                             \      \
+                                              \    __\
+                                               \  \
+                                                \ \
+                                                 \ \
+                                                  \\
+                                                   \\
+                                                    \
+                                                     \
                 </pre>
-                ';
+                TAG;
             }
             ?>
         </div>
