@@ -20,6 +20,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="styling/index.css" />
     <script src="scripts/index.js"></script>
     <meta charset="UTF-8">
@@ -35,7 +36,7 @@
         </h5>
     </nav>
     <div class="flex-row-container flex-center">
-        <div class="container">
+        <ul class="container accordion">
             <?php
             // Stop reading here lest your mind descend into the depths of infinite madness.
             // But if you don't: nobody else needs to know of this. Ever.
@@ -48,21 +49,24 @@
                     $post = $postErrPair->res;
 
                     foreach ($post->getRelevantCategories($categories) as $cat) {
-                        echo "<button class='collapsible'>$cat->name</button>";
+                        echo "<li><a class='toggle' href=\"javascript:void(0);\">$cat->name</a>";
                         foreach ($post->getEventsInCategory($categories, $cat) as $event) {
                             echo "
-                                <button class='collapsible'>$event->name</button>
-                                <div class='event'>
-                                    <div class='content-header'>
-                                        <h4><span class='hint'>LOCATION:&nbsp;</span>$event->location</h4>
-                                        <h4 style='float: right;'><span class='hint'>TIME:&nbsp;</span>$event->time</h4>
-                                    </div>
-                                    <div class='content'>
-                                        <p>$event->description</p>
-                                    </div>
-                                </div>
+                                <ul class='inner'>
+                                    <a class='toggle' href=\"javascript:void(0);\">$event->name</a>
+                                    <li class='event'>
+                                        <div class='content-header'>
+                                            <h4><span class='hint'>LOCATION:&nbsp;</span>$event->location</h4>
+                                            <h4 style='float: right;'><span class='hint'>TIME:&nbsp;</span>$event->time</h4>
+                                        </div>
+                                        <div class='content'>
+                                            <p>$event->description</p>
+                                        </div>
+                                    </li>
+                                </ul>
                             ";
                         }
+                        echo "</li>";
                     }
                 } else {
                     $err = "An internal error occurred while fetching this week's post. Please try again later.";
@@ -103,7 +107,7 @@
                 TAG;
             }
             ?>
-        </div>
+        </ul>
     </div>
 </body>
 </html>
