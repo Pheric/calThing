@@ -29,3 +29,6 @@ for i in range(0, numEvents):
     eventContact = inputStream.readline().strip() # needed but not added to DB
     # add event to DB
     cursor.execute("INSERT INTO events (postId, categoryId, eventName, eventDescription, eventLocation, eventTime) VALUES (%s,%s,%s,%s,%s,%s)", (1, eventCategory, eventName, eventDesc, eventWhere, eventWhen))
+    dbConnection.commit()
+
+dbConnection.close()
